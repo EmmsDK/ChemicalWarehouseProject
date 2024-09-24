@@ -1,10 +1,11 @@
 package main;
 
+import com.example.ChemicalWarehouseProjectApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
+@SpringBootTest(classes = ChemicalWarehouseProjectApplication.class)
 @ActiveProfiles("test")
 public class ChemicalWarehouseProjectApplicationTest {
 
