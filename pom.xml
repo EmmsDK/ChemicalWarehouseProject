@@ -60,6 +60,19 @@
 			<version>8.0.33</version> <!-- Specify the version here -->
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Thymeleaf template engine -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Spring Boot DevTools (optional, for hot reloading) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
