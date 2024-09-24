@@ -1,10 +1,12 @@
+package elements;
+
 public class ShipmentTicket {
 
 /*
 User Story 1: Simple Shipment Acceptance
 For shipment acceptance, you can create the following classes:
 
-ShipmentTicket
+elements.ShipmentTicket
 
 Attributes:
 ticket_number: The unique identifier for each shipment.
@@ -36,5 +38,13 @@ mark_rejected(): Marks the shipment as rejected.
 
     public void setTicketNumber(int ticketNumber) {
         this.ticketNumber = ticketNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
