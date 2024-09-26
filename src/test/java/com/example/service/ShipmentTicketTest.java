@@ -46,4 +46,17 @@ public class ShipmentTicketTest {
         ticket.setStatus("In Progress");
         assertEquals("In Progress", ticket.getStatus());
     }
+
+    @Test
+    public void testIsShipmentAccepted() {
+        ShipmentService service = new ShipmentService();
+        assertEquals(true, service.isShipmentAccepted("123A"));
+    }
+
+    @Test
+    public void testIsShipmentRejected() {
+        ShipmentService service = new ShipmentService();
+        assertEquals(false, service.isShipmentAccepted("123B"));
+    }
+
 }
