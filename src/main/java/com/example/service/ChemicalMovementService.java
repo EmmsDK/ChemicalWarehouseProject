@@ -11,9 +11,10 @@ import java.util.List;
 public class ChemicalMovementService {
     private List<ChemicalMovement> movements = new ArrayList<>();
 
-    public void logMovement(String chemicalName, String origin, String destination) {
+    public ChemicalMovement logMovement(String chemicalName, String origin, String destination) {
         ChemicalMovement movement = new ChemicalMovement(chemicalName, origin, destination, LocalDateTime.now());
         movements.add(movement);
+        return movement; // Return the logged movement
     }
 
     public List<ChemicalMovement> getAllMovements() {
