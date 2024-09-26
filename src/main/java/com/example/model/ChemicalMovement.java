@@ -5,13 +5,11 @@ import java.time.LocalDateTime;
 public class ChemicalMovement {
     private String chemicalName;
     private String origin;
-    private String destination;
     private LocalDateTime timestamp;
 
-    public ChemicalMovement(String chemicalName, String origin, String destination, LocalDateTime timestamp) {
+    public ChemicalMovement(String chemicalName, String origin, LocalDateTime timestamp) {
         this.chemicalName = chemicalName;
         this.origin = origin;
-        this.destination = destination;
         this.timestamp = timestamp;
     }
 
@@ -19,7 +17,7 @@ public class ChemicalMovement {
     public void logMovement() {
         System.out.println("Chemical Movement logged:");
         System.out.println("Chemical: " + chemicalName);
-        System.out.println("From: " + origin + " to " + destination);
+        System.out.println("From: " + origin);
         System.out.println("Timestamp: " + timestamp);
     }
 
@@ -37,14 +35,6 @@ public class ChemicalMovement {
 
     public void setOrigin(String origin) {
         this.origin = origin;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
     }
 
     public LocalDateTime getTimestamp() {

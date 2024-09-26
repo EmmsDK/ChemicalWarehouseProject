@@ -36,11 +36,17 @@ public class ChemicalMovementController {
     }
 
     @PostMapping("/movement/log")
-    public String logChemicalMovement(@RequestParam("chemical_name") String chemicalName,
+    public String logChemicalMovement(@RequestParam("chemicalName") String chemicalName,
                                       @RequestParam("origin") String origin,
-                                      @RequestParam("destination") String destination, Model model) {
-        chemicalMovementService.logMovement(chemicalName, origin, destination);
+                                      Model model) {
+        chemicalMovementService.logMovement(chemicalName, origin);
         model.addAttribute("movements", chemicalMovementService.getAllMovements());
         return "chemical_movements";
     }
 }
+/*
+    const ticketNumber = document.getElementById('ticket').value;
+    const chemicalName = document.getElementById('chemicalName').value;
+    const origin = document.getElementById('origin').value;
+
+ */
