@@ -1,4 +1,7 @@
-// static/js/main.js
+// static/js/app.js
+
+
+
 
 // Example: Simple client-side validation for the Shipment Acceptance form
 function validateShipmentForm() {
