@@ -39,16 +39,14 @@ public class ChemicalMovementControllerTest {
 
     @Test
     public void testLogChemicalMovement() throws Exception {
-        ChemicalMovement mockMovement = new ChemicalMovement("ChemicalX", "Lab", "Storage", LocalDateTime.now());
-        when(chemicalMovementService.logMovement(anyString(), anyString(), anyString())).thenReturn(mockMovement);
+        ChemicalMovement mockMovement = new ChemicalMovement("ChemicalX", "Lab", LocalDateTime.now());
+        when(chemicalMovementService.logMovement(anyString(), anyString())).thenReturn(mockMovement);
 
         mockMvc.perform(post("/chemicalMovements/movement/log")
                 .param("chemical_name", "ChemicalX")
-                .param("origin", "Lab")
-                .param("destination", "Storage"))
+                .param("origin", "Lab"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.chemicalName", is("ChemicalX")))
-                .andExpect(jsonPath("$.origin", is("Lab")))
-                .andExpect(jsonPath("$.destination", is("Storage")));
+                .andExpect(jsonPath("$.origin", is("Lab")));
     }
 }

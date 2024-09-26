@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.service.ChemicalMovementService;
 import com.example.model.ChemicalMovement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
