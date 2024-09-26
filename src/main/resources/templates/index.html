@@ -5,6 +5,28 @@
 </head>
 <body>
 <h1>Welcome to the Chemical Warehouse Project</h1>
+<form id="addTaskForm">
+    <label for="ticket">Ticket Number:</label>
+    <input type="text" id="ticket" name="ticket">
+
+    <label for="chemicalName">Chemical Name:</label>
+    <input type="text" id="chemicalName" name="chemicalName">
+
+    <label for="origin">Origin:</label>
+    <input type="text" id="origin" name="origin">
+
+    <label for="warehouse">Warehouse:</label>
+    <select id="warehouse" name="warehouse">
+        <option value="">Select Warehouse</option>
+        <option value="A">Warehouse A</option>
+        <option value="B">Warehouse B</option>
+        <option value="C">Warehouse C</option>
+    </select>
+
+    <button type="submit">Submit</button>
+</form>
+
+<div id="log"></div>
 
 <script src="app.js"></script>
 </body>
