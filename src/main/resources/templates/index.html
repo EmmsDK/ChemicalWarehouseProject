@@ -1,33 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Management</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Welcome to the Chemical Warehouse Project</h1>
-<form id="addTaskForm">
-    <label for="ticket">Ticket Number:</label>
-    <input type="text" id="ticket" name="ticket">
+<div class="tabs">
+    <div class="tab active" data-target="addShipment">Add Shipment</div>
+    <div class="tab" data-target="logList">Log List</div>
+</div>
 
-    <label for="chemicalName">Chemical Name:</label>
-    <input type="text" id="chemicalName" name="chemicalName">
+<div id="addShipment" class="content active">
+    <form id="addTaskForm">
+        <label for="ticket">Ticket Number:</label>
+        <input type="text" id="ticket" name="ticket"><br><br>
 
-    <label for="origin">Origin:</label>
-    <input type="text" id="origin" name="origin">
+        <label for="chemicalName">Chemical Name:</label>
+        <input type="text" id="chemicalName" name="chemicalName"><br><br>
 
-    <label for="warehouse">Warehouse:</label>
-    <select id="warehouse" name="warehouse">
-        <option value="">Select Warehouse</option>
-        <option value="A">Warehouse A</option>
-        <option value="B">Warehouse B</option>
-        <option value="C">Warehouse C</option>
-    </select>
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" name="origin"><br><br>
 
-    <button type="submit">Submit</button>
-</form>
+        <label for="warehouse">Warehouse:</label>
+        <select id="warehouse" name="warehouse">
+            <option value="A">Warehouse A</option>
+            <option value="B">Warehouse B</option>
+            <option value="C">Warehouse C</option>
+        </select><br><br>
 
-<div id="log"></div>
+        <button type="submit">Add Shipment</button>
+    </form>
+</div>
 
-<script src="app.js"></script>
+<div id="logList" class="content">
+    <table id="shipmentTable">
+        <thead>
+        <tr>
+            <th>Ticket Number</th>
+            <th>Chemical Name</th>
+            <th>Origin</th>
+            <th>Warehouse</th>
+            <th>Timestamp</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Shipment rows will be added dynamically here -->
+        </tbody>
+    </table>
+</div>
+
+<script src="/js/app.js"></script>
 </body>
 </html>

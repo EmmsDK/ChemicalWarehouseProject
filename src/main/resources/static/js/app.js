@@ -1,51 +1,93 @@
-document.getElementById('addTaskForm').addEventListener('submit', function(event) {
+// Tab Navigation
+const tabs = document.querySelectorAll('.tab');
+const contents = document.querySelectorAll('.content');
+tabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+    });
+});
+
+// Array to hold shipment data
+let shipments = [];
+
+// Form Submission and Adding Shipment
+document.getElementById('addTaskForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    // Clear any previous error messages
-    const errorMessage = document.getElementById('error-message');
-    if (errorMessage) {
-        errorMessage.remove();
-    }
-
-    // Get form values
     const ticketNumber = document.getElementById('ticket').value;
     const chemicalName = document.getElementById('chemicalName').value;
     const origin = document.getElementById('origin').value;
     const warehouse = document.getElementById('warehouse').value;
-
-    // Basic validation for inputs
-    if (!ticketNumber || !chemicalName || !origin || !warehouse) {
-        showError("Please fill in all the fields");
-        return;
-    }
-
-    // Check if the ticket is accepted or rejected
-    const isAccepted = ticketNumber.endsWith('A');
-    let acceptanceStatus = isAccepted ? 'Accepted' : 'Rejected';
-
-    // Get current timestamp
     const timestamp = new Date().toLocaleString();
 
-    // Print log after marking the shipment
-    logShipmentDetails(ticketNumber, chemicalName, origin, warehouse, timestamp, acceptanceStatus);
+    const isAccepted = ticketNumber.endsWith('A');
+    const status = isAccepted ? 'Accepted' : 'Rejected';
+
+    // Store shipment
+    const shipment = { ticketNumber, chemicalName, origin, warehouse, timestamp, status };
+    shipments.push(shipment);
+
+    // Reset the form
+    document.getElementById('addTaskForm').reset();
+
+    // Update the table
+    updateShipmentTable();
 });
 
-// Function to log shipment details
-function logShipmentDetails(ticket, chemical, origin, warehouse, timestamp, status) {
-    const log = `Ticket: ${ticket}, Chemical: ${chemical}, Origin: ${origin}, Warehouse: ${warehouse}, Timestamp: ${timestamp}, Status: ${status}`;
-    console.log(log);
+// Function to update the shipment table
+function updateShipmentTable() {
+    const tbody = document.getElementById('shipmentTable').querySelector('tbody');
+    tbody.innerHTML = ''; // Clear existing rows
 
-    // Optionally display it in the UI
-    const logElement = document.getElementById('log');
-    const logEntry = document.createElement('div');
-    logEntry.textContent = log;
-    logElement.appendChild(logEntry);
+    shipments.forEach((shipment, index) => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${shipment.ticketNumber}</td>
+            <td>${shipment.chemicalName}</td>
+            <td>${shipment.origin}</td>
+            <td>${shipment.warehouse}</td>
+            <td>${shipment.timestamp}</td>
+            <td><span class="edit" data-index="${index}">Edit</span></td>
+            <td><span class="delete" data-index="${index}">Delete</span></td>
+        `;
+
+        tbody.appendChild(row);
+    });
+
+    // Add event listeners for Edit and Delete buttons
+    document.querySelectorAll('.edit').forEach(button => {
+        button.addEventListener('click', function () {
+            const index = this.getAttribute('data-index');
+            editShipment(index);
+        });
+    });
+
+    document.querySelectorAll('.delete').forEach(button => {
+        button.addEventListener('click', function () {
+            const index = this.getAttribute('data-index');
+            deleteShipment(index);
+        });
+    });
 }
 
-// Function to display error messages
-function showError(message) {
-    const errorContainer = document.createElement('div');
-    errorContainer.id = 'error-message';
-    errorContainer.textContent = message;
-    document.getElementById('addTaskForm').appendChild(errorContainer);
+// Edit Shipment
+function editShipment(index) {
+    const newWarehouse = prompt('Enter new warehouse (A, B, C):', shipments[index].warehouse);
+    if (newWarehouse && ['A', 'B', 'C'].includes(newWarehouse)) {
+        shipments[index].warehouse = newWarehouse;
+        updateShipmentTable();
+    } else {
+        alert('Invalid warehouse. Please enter A, B, or C.');
+    }
+}
+
+// Delete Shipment
+function deleteShipment(index) {
+    shipments.splice(index, 1); // Remove the shipment from the array
+    updateShipmentTable(); // Refresh the table
 }
