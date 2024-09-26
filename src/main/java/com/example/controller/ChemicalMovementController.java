@@ -4,15 +4,19 @@ import com.example.service.ChemicalMovementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@CrossOrigin(origins = "http://localhost")
+@RestController
+@RequestMapping("/chemicalMovements")
+// @Controller
 public class ChemicalMovementController {
 
-    @Autowired
-    private ChemicalMovementService chemicalMovementService;
+    private final ChemicalMovementService chemicalMovementService;
+
+    public ChemicalMovementController(ChemicalMovementService chemicalMovementService) {
+        this.chemicalMovementService = chemicalMovementService;
+    }
 
     @GetMapping("/movement/log")
     public String showMovementForm(Model model) {
