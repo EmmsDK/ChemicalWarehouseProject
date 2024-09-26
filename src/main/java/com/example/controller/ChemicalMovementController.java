@@ -12,6 +12,17 @@ import org.springframework.web.bind.annotation.*;
 // @Controller
 public class ChemicalMovementController {
 
+    /*
+    USER STORY:
+    AS A SITE AUDITOR,
+    I WANT TO LOG AND VIEW MOVEMENTS OF CHEMICALS,
+    SO THAT I CAN TRACK BASIC INFORMATION ABOUT WHERE THE CHEMICALS ARE STORED OR MOVED
+
+    ACCEPTANCE CRITERIA:
+    * THE SYSTEM SHOULD ALLOW LOGGING A SIMPLE MOVEMENT ENTRY WITH CHEMICAL NAME, ORIGIN AND DESTINATION
+    * THE SYSTEM SHOULD DISPLAY A LIST OF MOVEMENTS WITH THE BASIC DETAILS
+     */
+
     private final ChemicalMovementService chemicalMovementService;
 
     public ChemicalMovementController(ChemicalMovementService chemicalMovementService) {

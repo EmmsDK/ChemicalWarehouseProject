@@ -2,28 +2,43 @@ package com.example.controller;
 
 import com.example.service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/shipments")
 public class ShipmentController {
 
-    @Autowired
-    private ShipmentService shipmentService;
+    /*
+    USER STORY:
+    AS A GATE STAFF MEMBER,
+    I WANT TO REGISTER A LORRY'S TICKET AND MARK THE SHIPMENT AS ACCEPTED OR REJECTED,
+    SO THAT I KNOW WHETHER TO PROCEED WITH STORING THE SHIPMENT OR NOT
 
-    @GetMapping("/shipment/accept")
-    public String showShipmentForm() {
-        return "shipment_acceptance";
+    ACCEPTANCE CRITERIA:
+    * THE SYSTEM SHOULD ACCEPT A TICKET NUMBER AND MARK THE SHIPMENT AS ACCEPTED OR REJECTED BASED ON BASIC CAPACITY
+    *NO NEED FOR DETAILED STORAGE INSTRUCTIONS OR COMPLEX CAPACITY CHECKS
+     */
+
+    private final ShipmentService shipmentService;
+
+    public ShipmentController(ShipmentService shipmentService) {
+        this.shipmentService = shipmentService;
     }
 
-    @PostMapping("/shipment/accept")
-    public String processShipment(@RequestParam("ticket_number") int ticketNumber,
-                                  @RequestParam("status") String status, Model model) {
-        shipmentService.processShipment(ticketNumber, status);
-        model.addAttribute("message", "Shipment " + status + " for ticket number: " + ticketNumber);
-        return "shipment_acceptance";
+    @PostMapping("/register")
+    public ResponseEntity<String> registerShipment(@RequestParam String ticketNumber) {
+        boolean isAccepted = shipmentService.isShipmentAccepted(ticketNumber);
+
+        if(isAccepted){
+            //ShipmentService.acceptShipment(ticketNumber);
+            return ResponseEntity.ok("Shipment registered with ticket number: " + ticketNumber);
+        } else {
+            //shipmentService.rejectShipment(ticketNumber);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Shipment rejected for ticket: " + ticketNumber);
+        }
     }
 }
